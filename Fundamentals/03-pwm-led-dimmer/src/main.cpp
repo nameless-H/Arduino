@@ -1,18 +1,44 @@
 #include <Arduino.h>
 
-// put function declarations here:
-int myFunction(int, int);
+enum ledState {
+  FADING_UP,
+  FADING_DOWN
+};
+ledState currentState = FADING_UP;
+
+
+unsigned long lastStepTime = 0;
+const unsigned long stepInterval = 10; //ms
+int brightness = 0;
+const int ledPin = 9;
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  pinMode (ledPin, OUTPUT);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
+  unsigned long now = millis();
+  
+  if (now - lastStepTime >= stepInterval) {
+    lastStepTime = now;
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+    switch (currentState) {
+      case FADING_UP:
+        analogWrite(ledPin, brightness);
+        if (brightness >= 255) {
+          currentState = FADING_DOWN;
+          break; 
+        }
+        brightness++;
+        break;
+      case FADING_DOWN:
+        analogWrite(ledPin, brightness);
+        if (brightness <= 0) {
+          currentState = FADING_UP;
+          break;
+        }
+        brightness--;
+        break;
+    }
+  }
 }
