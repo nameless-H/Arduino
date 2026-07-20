@@ -22,7 +22,7 @@ timers, DMA, and communication protocols.
 
 - [x] Fundamentals — FSM pattern, non-blocking timing, PWM
 - [x] Temperature & humidity logger
-- [ ] Ultrasonic distance sensor with I2C display
+- [x] Ultrasonic distance sensor with I2C display
 - [ ] PIR motion alarm with FSM
 - [ ] Mini CSV data logger
 - [ ] STM32 (Stage 4) — coming soon
